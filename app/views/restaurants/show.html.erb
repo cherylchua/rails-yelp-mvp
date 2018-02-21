@@ -1,0 +1,41 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+
+  <p>Address: <%= @restaurant.address %></p>
+  <p>Phone number: <%= @restaurant.phone_number %></p>
+  <p>Category: <%= @restaurant.category.capitalize %></p>
+
+  <% if !@reviews.nil? %>
+    <h2>Reviews</h2>
+    <ul>
+      <% @reviews.each do |review| %>
+      <li>
+        <%= review.content %>
+        (<% review.rating.times do %>
+        *
+        <% end %>)
+      </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="form-container">
+
+    <% if @review.errors.any? %>
+      <h3>Please re-check form inputs</h3>
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= simple_form_for([@restaurant, @review]) do |f|%>
+      <%= f.input :content %>
+      <%= f.input :rating %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+  <p><%= link_to "Back to Restaurant List", restaurants_path %></p>
+</div>

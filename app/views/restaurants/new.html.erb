@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Add a new restaurant</h2>
+
+  <% if @restaurant.errors.any? %>
+  <h3>Please re-check form inputs</h3>
+    <ul>
+      <% @restaurant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= render 'form', restaurant: @restaurant %>
+
+  <p><%= link_to 'Back to Restaurant List', restaurants_path %></p>
+</div>
